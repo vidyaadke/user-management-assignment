@@ -9,6 +9,8 @@ This README would normally document whatever steps are necessary to get your app
 - Jacoco Test report has implemented to get visibility on test coverage.
 - Minimum 90% test coverage has maintained in this repo using Jacoco, otherwise build will fail.
 - Junit, Mockito is used to write unit tests and Spring MVC Test are written to add test coverage on api.
+- Checkstyle is implemented to maintain formatting.
+- h2 database will get created as part of application start.
 
 ### How to run
 
@@ -24,7 +26,7 @@ This README would normally document whatever steps are necessary to get your app
 1. Make sure docker daemon process is running
 2. Run maven command `mvn clean install`
 3. Then run `docker build -t springio/gs-spring-boot-docker .` to create image
-4. Then run command `docker run -e "SPRING_PROFILES_ACTIVE=dev" -p 7001:7001 -t springio/gs-spring-boot-docker` to run application locally on 9800 port
+4. Then run command `docker run -e "SPRING_PROFILES_ACTIVE=dev" -p 7001:7001 -t springio/gs-spring-boot-docker` to run application locally on 7001 port
 5. Use `curl` to test health endpoint: `curl 'http://localhost:7001/actuator/health`
 
 ### Api Doc

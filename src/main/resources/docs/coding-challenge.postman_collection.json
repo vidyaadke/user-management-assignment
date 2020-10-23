@@ -13,12 +13,12 @@
 					"basic": [
 						{
 							"key": "password",
-							"value": "password2",
+							"value": "password",
 							"type": "string"
 						},
 						{
 							"key": "username",
-							"value": "consultant",
+							"value": "admin",
 							"type": "string"
 						}
 					]
@@ -84,7 +84,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"title\": \"Mr\",\n  \"firstName\": \"John1\",\n  \"lastName\": \"Pet1\",\n  \"gender\": \"Male\",\n  \"address\": {\n    \"street\": \"20 Gubbuteh Road, Little Bay, NSW 2036\",\n    \"city\": \"Sydney\",\n    \"state\": \"NSW\",\n    \"postcode\": \"2036\"\n  }\n}",
+					"raw": "{\n  \"title\": \"Mrdd\",\n  \"firstName\": \"John1\",\n  \"lastName\": \"Pet1\",\n  \"gender\": \"Maled\",\n  \"address\": {\n    \"street\": \"20 Gubbuteh Road, Little Bay, NSW 2036\",\n    \"city\": \"Sydney\",\n    \"state\": \"NSWdd\",\n    \"postcode\": \"2036\"\n  }\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -102,6 +102,48 @@
 						"api",
 						"users",
 						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "actuator circuitbreaker events",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7001/api/actuator/circuitbreakerevents",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7001",
+					"path": [
+						"api",
+						"actuator",
+						"circuitbreakerevents"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "actuator loggers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7001/api/actuator/loggers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7001",
+					"path": [
+						"api",
+						"actuator",
+						"loggers"
 					]
 				}
 			},
