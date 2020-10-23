@@ -1,0 +1,76 @@
+server:
+    port: 7001
+    servlet:
+        context-path: /api
+spring:
+    datasource:
+        driverClassName: org.h2.Driver
+        password: hgg78ffkk66
+        url: jdbc:h2:mem:testdb
+        username: sa
+    h2:
+        console:
+            enabled: true
+            path: /h2-console
+            settings:
+                trace: false
+                web-allow-others: false
+    jpa:
+        database-platform: org.hibernate.dialect.H2Dialect
+        hibernate:
+            ddl-auto: update
+        properties:
+            hibernate:
+                format_sql: true
+                validator:
+                    apply_to_ddl: false
+        show-sql: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+### resilience4j config
+resilience4j.circuitbreaker:
+  instances:
+    user-management-service:
+      slidingWindowSize: 100
+      slidingWindowType: COUNT_BASED
+      permittedNumberOfCallsInHalfOpenState: 10
+      minimumNumberOfCalls: 4
+      waitDurationInOpenState: 30s
+      failureRateThreshold: 50
+      recordExceptions:
+        - java.util.concurrent.TimeoutException
+        - java.io.IOException
+        - com.users.example.exception.ResourceNotFoundException
+
+resilience4j.retry:
+  instances:
+    user-management-service:
+      maxRetryAttempts: 2
+      waitDuration: 10s
+      enableExponentialBackoff: true
+      exponentialBackoffMultiplier: 2
+
+resilience4j.bulkhead:
+  instances:
+    user-management-service:
+      maxWaitDuration: 5s
+      maxConcurrentCalls: 100
+
+resilience4j.thread-pool-bulkhead:
+  instances:
+    user-management-service:
+      maxThreadPoolSize: 64
+      coreThreadPoolSize: 16
+      queueCapacity: 64
+
+resilience4j.ratelimiter:
+  instances:
+    user-management-service:
+      limitForPeriod: 200
+      limitRefreshPeriod: 60s
+      timeoutDuration: 30s

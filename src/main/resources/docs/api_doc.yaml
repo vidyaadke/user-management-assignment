@@ -1,0 +1,309 @@
+openapi: 3.0.1
+info:
+  title: Perason Example
+  description: >
+    Coding challenge for Users Management services.
+
+    # Introduction
+
+    ## Standards
+
+    This API is documented in **OpenAPI v3 format**
+
+
+    ## Payload Conventions
+
+
+    This API receives and responds with only JSON Objects.
+
+
+    ### Request Payload
+
+
+    Request payload must have valid JSON.
+
+
+    ### Response Payload
+
+
+    If the response is successful (200 OK), the payload object follows this
+    structure:
+
+
+    **When there is a single entity:**
+
+    ```json
+
+    {
+      "data": {
+        // entity
+      }
+    }
+
+    ```
+
+
+    **When there are multiple entities:**
+
+    ```json
+
+    {
+      "data": {
+        "pluralEntityName": [
+          // entity
+       ]
+      }
+    }
+
+    ```
+
+
+    If the response is not successful, the payload object follows this
+    structure:
+
+
+    ```json
+
+    {
+        "errors": [
+            {
+                "errorCode": "PARAMETER_INVALID_VALUE",
+                "message": "Parameter 'input' format is invalid.",
+                "parameter": ""
+            },
+            {
+                "errorCode": "PARAMETER_NULL",
+                "message": "Parameter 'input' is null value.",
+                "parameter": ""
+            }
+        ]
+    }
+
+    ```
+
+    # Authentication
+
+    All API requests authenticate through the `x-api-key` headers.
+
+    # Error Codes
+
+
+    | Error Code               |
+    Reason                                         | HTTP Code |
+
+    |
+    -------------------------|---------------------------------------------------
+    | ---------|
+
+    | PARAMETER_INVALID_VALUE        | Input format is invalid.  | 400   |
+
+    | PARAMETER_NULL       | Input is null value.   | 400   |
+
+    | INTERNAL_SERVER_ERROR         | Internal server error     | 500   |
+
+
+  version: 1.0.0
+
+security:
+  - basicAuth: []
+
+servers:
+  - url: 'http://localhost:9801/'
+    description: Local / Dev
+    variables:
+      version:
+        default: v1
+        description: API Version
+tags:
+  - name: Users Management
+    description: >-
+      This service allows us to update and get users.
+
+paths:
+  '/users/{userId}':
+    get:
+      tags:
+        -   Users Management
+      summary:  Users Management
+      description: This service allows us to get users data.
+      operationId: getUser
+      parameters:
+        - name: userId
+          in: path
+          description: An unique user identifier.
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsersResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Notfound Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-codegen-request-body-name: body
+
+    put:
+      tags:
+        - Users Management
+      summary: Update a user
+      description: Updates user’s details like first and last name etc.
+      operationId: updateUser
+      parameters:
+        - name: userId
+          in: path
+          description: A unique identifier of a user.
+          schema:
+            type: integer
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsersResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Notfound Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-codegen-request-body-name: body
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+  schemas:
+    UsersResponse:
+      required:
+        - data
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/UsersResponseData'
+
+    UpdateUserRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          description: User's title.
+          example: Mr
+        firstName:
+          type: string
+          description: User's first name.
+          example: John
+        lastName:
+          type: string
+          description: User's last name.
+          example: Pet
+        gender:
+          type: string
+          description: User's gender.
+          example: Male
+        address:
+          $ref: '#/components/schemas/Address'
+
+    UsersResponseData:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: A unique identifier of a user.
+          example: 120
+        title:
+          type: string
+          description: User's title.
+          example: Mr
+        firstName:
+          type: string
+          description: User's first name.
+          example: John
+        lastName:
+          type: string
+          description: User's last name.
+          example: Pet
+        gender:
+          type: string
+          description: User's gender.
+          example: Male
+        address:
+          $ref: '#/components/schemas/Address'
+
+    Address:
+      type: object
+      description: Address details of the user
+      properties:
+        street:
+          type: string
+          description: Full address.
+          example: '20 Gubbuteh Road, Little Bay, NSW 2036'
+        city:
+          type: string
+          description: City of the address.
+          example: Sydney
+        state:
+          type: string
+          description: The geographical state where the address is located at.
+          example: NSW
+        postcode:
+          type: string
+          description: Postcode of the address.
+          example: '2036'
+
+    ErrorResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+
+    ErrorDetail:
+      type: object
+      properties:
+        errorCode:
+          type: string
+        message:
+          type: string
+        parameter:
+          type: string

@@ -1,0 +1,15 @@
+{
+  "data": {
+    "id": 1,
+    "title": "Mr",
+    "firstName": "Aliko",
+    "lastName": "Dangote",
+    "gender": "Male",
+    "address": {
+      "street": "10 Lillian",
+      "city": "Sydney",
+      "state": "NSW",
+      "postcode": "2145"
+    }
+  }
+}

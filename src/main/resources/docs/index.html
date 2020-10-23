@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Users Management Services doc</title>
+    <!-- needed for adaptive design -->
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700|Roboto:300,400,700" rel="stylesheet">
+    <!--
+    ReDoc doesn't change outer page styles
+    -->
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        body img {
+            padding: 1rem !important;
+        }
+    </style>
+</head>
+<body>
+
+
+<div id="redoc-container"></div>
+<script src="https://cdn.jsdelivr.net/npm/redoc@2.0.0-rc.29/bundles/redoc.standalone.js"></script>
+
+<script>
+    Redoc.init('api_doc.yaml', {
+        'menu-toggle': true,
+        theme: {
+            menu: {width: '250px'},
+        }
+    }, document.getElementById('redoc-container'))
+</script>
+</body>
+</html>

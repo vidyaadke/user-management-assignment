@@ -1,0 +1,9 @@
+{
+  "errors": [
+    {
+      "errorCode": "NotFound",
+      "message": "Could not found user with id: 66666",
+      "parameter": ""
+    }
+  ]
+}
