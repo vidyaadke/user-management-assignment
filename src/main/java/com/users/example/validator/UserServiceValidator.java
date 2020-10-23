@@ -19,6 +19,9 @@ import java.util.stream.Stream;
 
     ErrorResponseBuilder errorResponseBuilder = new ErrorResponseBuilder();
 
+    /**
+     * Function to validate get user request
+     */
     public List<ErrorDetail> validateRequest(Integer userId) {
         List<ErrorDetail> errorDetails = new ArrayList<>();
 
@@ -29,6 +32,9 @@ import java.util.stream.Stream;
         return errorDetails;
     }
 
+    /**
+     * Function to validate update user request
+     */
     public List<ErrorDetail> validateRequest(Integer userId, UpdateUserRequest request) {
         List<ErrorDetail> errorDetails = new ArrayList<>();
 
@@ -41,6 +47,7 @@ import java.util.stream.Stream;
 
         }
 
+        //validate gender if exist
         if (request != null && request.getGender() != null) {
             if (!EnumUtils.isValidEnum(Gender.class, request.getGender())) {
                 errorDetails.add(errorResponseBuilder.buildErrorDetail(ApiErrorCode.PARAMETER_INVALID_VALUE.name(),
@@ -50,6 +57,7 @@ import java.util.stream.Stream;
             }
         }
 
+        //validate title if exist
         if (request != null && request.getTitle() != null) {
             if (!EnumUtils.isValidEnum(Title.class, request.getTitle())) {
                 errorDetails.add(errorResponseBuilder.buildErrorDetail(ApiErrorCode.PARAMETER_INVALID_VALUE.name(),
@@ -59,6 +67,7 @@ import java.util.stream.Stream;
             }
         }
 
+        //validate address state if exist
         if (request != null && request.getAddress() != null) {
             if (!EnumUtils.isValidEnum(State.class, request.getAddress().getState())) {
                 errorDetails.add(errorResponseBuilder.buildErrorDetail(ApiErrorCode.PARAMETER_INVALID_VALUE.name(),

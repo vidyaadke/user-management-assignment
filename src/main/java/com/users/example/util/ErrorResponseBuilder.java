@@ -7,12 +7,18 @@ import java.util.List;
 
 public class ErrorResponseBuilder {
 
+    /*
+     * Function to build error response
+     */
     public ErrorResponse buildErrorResponse(List<ErrorDetail> errorDetails) {
         ErrorResponse errorResponse = new ErrorResponse();
         errorResponse.setErrors(errorDetails);
         return errorResponse;
     }
 
+    /*
+     * Function to build error response
+     */
     public ErrorDetail buildErrorDetail(String errorCode, String message, String parameter) {
         ErrorDetail errorDetail = new ErrorDetail();
         errorDetail.setErrorCode(errorCode);

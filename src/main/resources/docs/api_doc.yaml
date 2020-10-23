@@ -81,10 +81,6 @@ info:
 
     ```
 
-    # Authentication
-
-    All API requests authenticate through the `x-api-key` headers.
-
     # Error Codes
 
 
@@ -108,7 +104,7 @@ security:
   - basicAuth: []
 
 servers:
-  - url: 'http://localhost:9801/'
+  - url: 'http://localhost:7001/'
     description: Local / Dev
     variables:
       version:
